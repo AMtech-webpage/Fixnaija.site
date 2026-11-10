@@ -1,0 +1,6 @@
+{
+  "name": "FixNaija",
+  "description": "Find Skills. Hire Experts. Share Knowledge. Nigeria's premier digital platform connecting verified technicians with clients and fostering technical education.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
