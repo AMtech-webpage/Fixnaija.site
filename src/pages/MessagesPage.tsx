@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { 
   Search, 
   Send, 
-  Paperclip, 
   Image as ImageIcon, 
   CheckCheck, 
   Check, 
-  Clock, 
-  Phone, 
   ShieldCheck, 
   Calendar,
   X
@@ -52,7 +49,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
 
   const simulateAttachment = () => {
     // Attach sample repair photo
-    setAttachmentPreview('/src/assets/images/generator_solar_repair_1794306643540.jpg');
+    setAttachmentPreview('/src/assets/images/hero_technician_repair_1794306643365.jpg');
   };
 
   const filteredConversations = conversations.filter(c => 
@@ -63,17 +60,17 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden h-[750px] flex flex-col md:flex-row">
+      <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden h-[750px] flex flex-col md:flex-row transition-colors">
         
         {/* Left Column: Conversation Directory */}
-        <div className="w-full md:w-80 lg:w-96 border-r border-slate-200 flex flex-col bg-slate-50/50">
+        <div className="w-full md:w-80 lg:w-96 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-slate-50/50 dark:bg-slate-900/40">
           
           {/* Header */}
-          <div className="p-4 border-b border-slate-200 bg-white">
-            <h2 className="text-base font-bold text-slate-900 tracking-tight">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0D1829]">
+            <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
               FixNaija Direct Chat
             </h2>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
               End-to-end encrypted discussion & quotes
             </p>
 
@@ -85,13 +82,13 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                 value={searchFilter}
                 onChange={(e) => setSearchFilter(e.target.value)}
                 placeholder="Search conversations..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                className="w-full pl-9 pr-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
               />
             </div>
           </div>
 
           {/* Conversations List */}
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
+          <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
             {filteredConversations.map((conv) => {
               const isSelected = conv.id === activeConv?.id;
               return (
@@ -99,7 +96,9 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                   key={conv.id}
                   onClick={() => onSelectConversation(conv.id)}
                   className={`p-4 flex items-start gap-3 cursor-pointer transition-colors ${
-                    isSelected ? 'bg-white border-l-4 border-[#FF6500] shadow-xs' : 'hover:bg-slate-100/60'
+                    isSelected 
+                      ? 'bg-white dark:bg-slate-800/80 border-l-4 border-[#FF6500] shadow-xs' 
+                      : 'hover:bg-slate-100/60 dark:hover:bg-slate-800/40'
                   }`}
                 >
                   <div className="relative shrink-0">
@@ -107,16 +106,16 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                       src={conv.participant_avatar}
                       alt={conv.participant_name}
                       referrerPolicy="no-referrer"
-                      className="w-12 h-12 rounded-xl object-cover border border-slate-200 bg-slate-100"
+                      className="w-12 h-12 rounded-xl object-cover border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800"
                     />
                     {conv.is_online && (
-                      <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full" />
+                      <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#0D1829] rounded-full" />
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-bold text-slate-900 truncate">
+                      <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">
                         {conv.participant_name}
                       </h4>
                       <span className="text-[10px] text-slate-400 shrink-0 font-medium">
@@ -128,7 +127,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                       {conv.category}
                     </p>
 
-                    <p className="text-xs text-slate-500 truncate mt-1">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-1">
                       {conv.last_message}
                     </p>
                   </div>
@@ -143,7 +142,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
             })}
           </div>
 
-          <div className="p-3 bg-slate-100/60 border-t border-slate-200 text-center">
+          <div className="p-3 bg-slate-100/60 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-center">
             <span className="text-[10px] text-slate-400">
               Only accessible by authorized participants via Supabase RLS
             </span>
@@ -153,23 +152,23 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
 
         {/* Right Column: Active Chat Thread */}
         {activeConv ? (
-          <div className="flex-1 flex flex-col bg-white">
+          <div className="flex-1 flex flex-col bg-white dark:bg-[#0D1829]">
             
             {/* Chat Header */}
-            <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+            <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
                   src={activeConv.participant_avatar}
                   alt={activeConv.participant_name}
                   referrerPolicy="no-referrer"
-                  className="w-10 h-10 rounded-xl object-cover border border-slate-200"
+                  className="w-10 h-10 rounded-xl object-cover border border-slate-200 dark:border-slate-700"
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="text-sm font-bold text-slate-900">{activeConv.participant_name}</h3>
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">{activeConv.participant_name}</h3>
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <p className="text-[11px] text-slate-500">{activeConv.participant_title} · {activeConv.category}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">{activeConv.participant_title} · {activeConv.category}</p>
                 </div>
               </div>
 
@@ -185,7 +184,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
             </div>
 
             {/* Chat Messages Body */}
-            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/30">
+            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/30 dark:bg-slate-900/20">
               {activeMessages.map((msg) => {
                 const isMe = msg.sender_id === (currentUser?.id || 'user-current');
 
@@ -197,8 +196,8 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                     <div
                       className={`max-w-md rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed shadow-xs ${
                         isMe
-                          ? 'bg-[#0B192C] text-white rounded-tr-none'
-                          : 'bg-white text-slate-800 border border-slate-200/80 rounded-tl-none'
+                          ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white rounded-tr-none'
+                          : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700 rounded-tl-none'
                       }`}
                     >
                       {msg.attachment_url && (
@@ -218,7 +217,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                       {isMe && (
                         <span>
                           {msg.status === 'read' ? (
-                            <CheckCheck className="w-3.5 h-3.5 text-[#FF6500] inline" />
+                            <CheckCheck className="w-3.5 h-3.5 text-[#FF6500] dark:text-amber-400 inline" />
                           ) : (
                             <Check className="w-3.5 h-3.5 inline" />
                           )}
@@ -232,18 +231,18 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
 
             {/* Attachment preview if user picked an image */}
             {attachmentPreview && (
-              <div className="px-4 py-2 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
+              <div className="px-4 py-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <img
                     src={attachmentPreview}
                     alt="Preview"
-                    className="w-12 h-12 rounded-lg object-cover border border-slate-200"
+                    className="w-12 h-12 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                   />
-                  <span className="text-xs font-medium text-slate-700">Photo attached for diagnostic analysis</span>
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">Photo attached for diagnostic analysis</span>
                 </div>
                 <button
                   onClick={() => setAttachmentPreview(null)}
-                  className="p-1 text-slate-400 hover:text-slate-700"
+                  className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -251,14 +250,14 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
             )}
 
             {/* Input Bar */}
-            <form onSubmit={handleSend} className="p-3.5 border-t border-slate-200 flex items-center gap-2">
+            <form onSubmit={handleSend} className="p-3.5 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
               <button
                 type="button"
                 onClick={simulateAttachment}
                 title="Attach Photo of Damaged Equipment"
-                className="p-2.5 text-slate-500 hover:text-[#0B192C] hover:bg-slate-100 rounded-xl transition-colors"
+                className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-[#0B192C] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
               >
-                <ImageIcon className="w-5 h-5 text-slate-500" />
+                <ImageIcon className="w-5 h-5 text-slate-500 dark:text-slate-400" />
               </button>
 
               <input
@@ -266,7 +265,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Type your message, ask for diagnostic quote..."
-                className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
               />
 
               <button

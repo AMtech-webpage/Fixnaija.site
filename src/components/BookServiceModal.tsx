@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, MapPin, DollarSign, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import { Technician, JobRequest, UserProfile } from '../types';
 import { NIGERIAN_STATES } from '../data/mockData';
 
@@ -81,7 +81,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-150">
+      <div className="bg-white dark:bg-[#0D1829] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-lg overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-150 transition-colors">
         
         {/* Header */}
         <div className="bg-[#0B192C] p-5 text-white flex items-center justify-between">
@@ -102,11 +102,11 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
 
         {success ? (
           <div className="p-8 text-center space-y-3">
-            <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-bold text-slate-900">Job Request Dispatched!</h4>
-            <p className="text-sm text-slate-600 max-w-sm mx-auto">
+            <h4 className="text-lg font-bold text-slate-900 dark:text-white">Job Request Dispatched!</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
               {technician.full_name} has received your job notification in their FixNaija dashboard and will respond promptly via private message.
             </p>
           </div>
@@ -115,7 +115,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
             
             {/* Quick Service Preset */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Select Service or Describe Custom Problem
               </label>
               <select
@@ -128,11 +128,11 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                     setServiceTitle(e.target.value);
                   }
                 }}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white transition-all"
+                className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800 transition-all cursor-pointer"
               >
-                <option value="">-- Choose Standard Service or Custom --</option>
+                <option value="" className="dark:bg-slate-800">-- Choose Standard Service or Custom --</option>
                 {technician.services.map((s) => (
-                  <option key={s.id} value={s.name}>
+                  <option key={s.id} value={s.name} className="dark:bg-slate-800">
                     {s.name} (₦{s.price_naira.toLocaleString()})
                   </option>
                 ))}
@@ -141,7 +141,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
 
             {/* Service title if custom */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Service Task Title
               </label>
               <input
@@ -150,13 +150,13 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                 value={serviceTitle}
                 onChange={(e) => setServiceTitle(e.target.value)}
                 placeholder="e.g. Generator AVR Replacement or Inverter Inspection"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white transition-all"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800 transition-all"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Fault Description & Symptoms
               </label>
               <textarea
@@ -165,23 +165,23 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe what is happening (e.g. generator starts and stops, spark plug is black, water leaking from pipe, etc.)"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white transition-all resize-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800 transition-all resize-none"
               />
             </div>
 
             {/* Location */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   State
                 </label>
                 <select
                   value={selectedState}
                   onChange={(e) => handleStateChange(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 >
                   {NIGERIAN_STATES.map((s) => (
-                    <option key={s.state} value={s.state}>
+                    <option key={s.state} value={s.state} className="dark:bg-slate-800">
                       {s.state}
                     </option>
                   ))}
@@ -189,16 +189,16 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   LGA
                 </label>
                 <select
                   value={selectedLga}
                   onChange={(e) => setSelectedLga(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 >
                   {currentLgas.map((lga) => (
-                    <option key={lga} value={lga}>
+                    <option key={lga} value={lga} className="dark:bg-slate-800">
                       {lga}
                     </option>
                   ))}
@@ -208,7 +208,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
 
             {/* Street Address */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Street Address / Landmark
               </label>
               <input
@@ -217,14 +217,14 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="e.g. 25 Toyin Street, Ikeja, Lagos"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white transition-all"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800 transition-all"
               />
             </div>
 
             {/* Budget & Date */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Budget (₦ Naira)
                 </label>
                 <input
@@ -234,12 +234,12 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                   required
                   value={budgetNaira}
                   onChange={(e) => setBudgetNaira(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Preferred Timeframe
                 </label>
                 <input
@@ -248,7 +248,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
                   placeholder="e.g. Tomorrow 2pm"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
               </div>
             </div>
@@ -268,7 +268,7 @@ export const BookServiceModal: React.FC<BookServiceModalProps> = ({
               </button>
             </div>
 
-            <p className="text-[11px] text-slate-500 text-center">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center">
               Payment is held in FixNaija escrow until you confirm the work is completed to satisfaction.
             </p>
 

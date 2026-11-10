@@ -8,13 +8,7 @@ import {
   ArrowRight, 
   Play, 
   BookOpen, 
-  MessageSquare, 
-  CheckCircle2, 
-  Clock, 
-  Sparkles,
-  Award,
   ChevronRight,
-  TrendingUp,
   Cpu,
   Smartphone,
   Laptop,
@@ -25,6 +19,7 @@ import {
 } from 'lucide-react';
 import { ServiceCategory, Technician, Tutorial } from '../types';
 import { NIGERIAN_STATES } from '../data/mockData';
+import { AppTab } from '../components/Navbar';
 
 interface HomePageProps {
   categories: ServiceCategory[];
@@ -33,7 +28,7 @@ interface HomePageProps {
   onSelectCategory: (categoryName: string) => void;
   onSelectTechnician: (tech: Technician) => void;
   onSelectTutorial: (tutorial: Tutorial) => void;
-  onNavigate: (tab: 'home' | 'technicians' | 'learn' | 'how-it-works' | 'dashboard' | 'messages') => void;
+  onNavigate: (tab: AppTab) => void;
   onOpenAuth: (mode?: 'login' | 'signup') => void;
   onSearch: (keyword: string, category: string, state: string, lga: string) => void;
 }
@@ -62,7 +57,6 @@ export const HomePage: React.FC<HomePageProps> = ({
     onNavigate('technicians');
   };
 
-  // Icon mapping
   const renderCategoryIcon = (iconName: string) => {
     switch (iconName) {
       case 'Smartphone': return <Smartphone className="w-5 h-5 text-[#FF6500]" />;
@@ -115,7 +109,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Prominent Multi-Zone Search Bar */}
               <form 
                 onSubmit={handleSearchSubmit}
-                className="p-2 sm:p-2.5 bg-white rounded-2xl shadow-2xl border border-white/20 text-slate-900 grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4"
+                className="p-2 sm:p-2.5 bg-white dark:bg-[#0D1829] rounded-2xl shadow-2xl border border-white/20 dark:border-slate-700 text-slate-900 dark:text-white grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4"
               >
                 {/* Keyword input */}
                 <div className="sm:col-span-4 relative flex items-center">
@@ -125,20 +119,20 @@ export const HomePage: React.FC<HomePageProps> = ({
                     value={searchKeyword}
                     onChange={(e) => setSearchKeyword(e.target.value)}
                     placeholder="Search generator, AC, laptop repair..."
-                    className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-transparent border-0 focus:outline-none placeholder:text-slate-400"
+                    className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-transparent border-0 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
                   />
                 </div>
 
                 {/* Category selector */}
-                <div className="sm:col-span-3 border-t sm:border-t-0 sm:border-l border-slate-200 pl-2 flex items-center">
+                <div className="sm:col-span-3 border-t sm:border-t-0 sm:border-l border-slate-200 dark:border-slate-700 pl-2 flex items-center">
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full py-2.5 text-xs font-medium text-slate-700 bg-transparent border-0 focus:outline-none cursor-pointer"
+                    className="w-full py-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-transparent border-0 focus:outline-none cursor-pointer"
                   >
-                    <option value="">All Categories</option>
+                    <option value="" className="dark:bg-[#0D1829]">All Categories</option>
                     {categories.map((cat) => (
-                      <option key={cat.id} value={cat.name}>
+                      <option key={cat.id} value={cat.name} className="dark:bg-[#0D1829]">
                         {cat.name}
                       </option>
                     ))}
@@ -146,7 +140,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
 
                 {/* Location selector (State & LGA) */}
-                <div className="sm:col-span-3 border-t sm:border-t-0 sm:border-l border-slate-200 pl-2 flex items-center">
+                <div className="sm:col-span-3 border-t sm:border-t-0 sm:border-l border-slate-200 dark:border-slate-700 pl-2 flex items-center">
                   <MapPin className="w-3.5 h-3.5 text-slate-400 mr-1 shrink-0" />
                   <select
                     value={selectedState}
@@ -154,10 +148,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                       setSelectedState(e.target.value);
                       setSelectedLga('All LGAs');
                     }}
-                    className="w-full py-2.5 text-xs font-medium text-slate-700 bg-transparent border-0 focus:outline-none cursor-pointer"
+                    className="w-full py-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-transparent border-0 focus:outline-none cursor-pointer"
                   >
                     {NIGERIAN_STATES.map((st) => (
-                      <option key={st.state} value={st.state}>
+                      <option key={st.state} value={st.state} className="dark:bg-[#0D1829]">
                         {st.state}
                       </option>
                     ))}
@@ -242,13 +236,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 2. SOCIAL PROOF SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
+        <div className="bg-white dark:bg-[#0D1829] rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800 transition-colors">
           
           <div className="space-y-1">
-            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tabular-nums">
+            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tabular-nums">
               20M+
             </p>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Trusted by Over 20M Users Globally
             </p>
           </div>
@@ -257,26 +251,26 @@ export const HomePage: React.FC<HomePageProps> = ({
             <p className="text-2xl sm:text-3xl font-extrabold text-[#FF6500] tabular-nums">
               ₦45M+
             </p>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               USDT & Naira Work Paid Out
             </p>
           </div>
 
           <div className="space-y-1 pt-4 lg:pt-0">
-            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tabular-nums flex items-center justify-center gap-1">
+            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tabular-nums flex items-center justify-center gap-1">
               <span>4.8</span>
               <Star className="w-5 h-5 text-amber-500 fill-amber-500 inline" />
             </p>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Community Satisfaction Rating
             </p>
           </div>
 
           <div className="space-y-1 pt-4 lg:pt-0">
-            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tabular-nums">
+            <p className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tabular-nums">
               36 States
             </p>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Nationwide Coverage in Nigeria
             </p>
           </div>
@@ -293,10 +287,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               <span aria-hidden="true">·</span>
               <span>Available 24/7</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tracking-tight mt-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tracking-tight mt-1">
               Popular Service Categories
             </h2>
-            <p className="text-sm text-slate-600 mt-1 max-w-xl">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
               From residential generator tune-ups to precision micro-soldering, hire vetted professionals with upfront transparent rates.
             </p>
           </div>
@@ -319,34 +313,34 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onSelectCategory(cat.name);
                 onNavigate('technicians');
               }}
-              className="cursor-pointer group p-5 bg-white rounded-2xl border border-slate-200/80 hover:border-[#FF6500] hover:shadow-lg transition-all flex flex-col justify-between"
+              className="cursor-pointer group p-5 bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:border-[#FF6500] dark:hover:border-[#FF6500] hover:shadow-lg transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="w-11 h-11 rounded-xl bg-slate-100 group-hover:bg-orange-50 flex items-center justify-center transition-colors mb-4">
+                <div className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 group-hover:bg-orange-50 dark:group-hover:bg-orange-500/10 flex items-center justify-center transition-colors mb-4">
                   {renderCategoryIcon(cat.iconName)}
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-[#FF6500] transition-colors">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-[#FF6500] transition-colors">
                   {cat.name}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
                   {cat.description}
                 </p>
 
                 <div className="mt-3 flex flex-wrap gap-1">
                   {cat.popular_issues.slice(0, 2).map((issue) => (
-                    <span key={issue} className="text-[10px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded">
+                    <span key={issue} className="text-[10px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/80 px-2 py-0.5 rounded">
                       {issue}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">
+              <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                <span className="text-slate-500 dark:text-slate-400 font-medium">
                   {cat.technician_count} verified pros
                 </span>
-                <span className="font-bold text-[#0B192C] tabular-nums">
+                <span className="font-bold text-[#0B192C] dark:text-white tabular-nums">
                   From ₦{cat.starting_price_naira.toLocaleString()}
                 </span>
               </div>
@@ -364,10 +358,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               <span aria-hidden="true">·</span>
               <span>Audited Workmanship</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tracking-tight mt-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tracking-tight mt-1">
               Top-Rated Technicians
             </h2>
-            <p className="text-sm text-slate-600 mt-1 max-w-xl">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
               Reviewed by real Nigerian homeowners, offices, and businesses with transparent job histories.
             </p>
           </div>
@@ -386,7 +380,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           {technicians.slice(0, 3).map((tech) => (
             <div
               key={tech.id}
-              className="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div className="p-6">
                 
@@ -397,12 +391,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                       src={tech.avatar_url}
                       alt={tech.full_name}
                       referrerPolicy="no-referrer"
-                      className="w-16 h-16 rounded-xl object-cover bg-slate-100 border border-slate-200"
+                      className="w-16 h-16 rounded-xl object-cover bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
                     />
                     {tech.verified && (
                       <div 
                         title="FixNaija Verified"
-                        className="absolute -bottom-1 -right-1 bg-emerald-500 text-white p-0.5 rounded-full border border-white"
+                        className="absolute -bottom-1 -right-1 bg-emerald-500 text-white p-0.5 rounded-full border border-white dark:border-[#0D1829]"
                       >
                         <ShieldCheck className="w-3.5 h-3.5" />
                       </div>
@@ -410,15 +404,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-base font-bold text-slate-900 hover:text-[#FF6500] transition-colors">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white hover:text-[#FF6500] transition-colors">
                       {tech.full_name}
                     </h3>
-                    <p className="text-xs font-medium text-slate-600 line-clamp-1">
+                    <p className="text-xs font-medium text-slate-600 dark:text-slate-400 line-clamp-1">
                       {tech.title}
                     </p>
                     
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="flex items-center gap-1 font-bold text-slate-900">
+                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-1 font-bold text-slate-900 dark:text-white">
                         <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                         <span className="tabular-nums">{tech.rating.toFixed(2)}</span>
                       </div>
@@ -429,25 +423,25 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
 
                 {/* Location and Category */}
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-slate-400" />
                     <span>{tech.city}, {tech.state}</span>
                   </span>
-                  <span className="font-semibold text-slate-700">
+                  <span className="font-semibold text-slate-700 dark:text-slate-300">
                     {tech.category}
                   </span>
                 </div>
 
                 {/* Short Bio */}
-                <p className="text-xs text-slate-600 mt-3 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-3 line-clamp-2 leading-relaxed">
                   {tech.bio}
                 </p>
 
                 {/* Proficiencies */}
-                <div className="mt-3 flex flex-wrap gap-1 text-[11px] text-slate-600">
+                <div className="mt-3 flex flex-wrap gap-1 text-[11px] text-slate-600 dark:text-slate-300">
                   {tech.skills.slice(0, 3).map((sk) => (
-                    <span key={sk} className="bg-slate-100 px-2 py-0.5 rounded">
+                    <span key={sk} className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
                       {sk}
                     </span>
                   ))}
@@ -456,17 +450,17 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+              <div className="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] text-slate-500 block">Inspection Fee</span>
-                  <span className="text-sm font-extrabold text-[#0B192C] tabular-nums">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block">Inspection Fee</span>
+                  <span className="text-sm font-extrabold text-[#0B192C] dark:text-white tabular-nums">
                     ₦{tech.hourly_rate_naira.toLocaleString()}
                   </span>
                 </div>
 
                 <button
                   onClick={() => onSelectTechnician(tech)}
-                  className="px-4 py-2 bg-[#0B192C] hover:bg-[#FF6500] text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1"
+                  className="px-4 py-2 bg-[#0B192C] dark:bg-slate-700 hover:bg-[#FF6500] dark:hover:bg-[#FF6500] text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1"
                 >
                   <span>View Profile</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -582,10 +576,10 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span aria-hidden="true">·</span>
             <span>Zero Headaches</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B192C] dark:text-white tracking-tight">
             How FixNaija Works
           </h2>
-          <p className="text-sm text-slate-600 mt-2">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
             Get your appliances, generators, and electronics repaired with verified peace of mind in three easy steps.
           </p>
         </div>
@@ -593,40 +587,40 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           
           {/* Step 1 */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-8 space-y-4 text-center relative shadow-sm">
+          <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-4 text-center relative shadow-sm">
             <div className="w-12 h-12 rounded-xl bg-[#0B192C] text-white flex items-center justify-center font-bold text-lg mx-auto shadow-md">
               1
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
               Find a Professional
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Browse vetted technicians by location, category, customer reviews, and transparent pricing in your exact local government area.
             </p>
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-8 space-y-4 text-center relative shadow-sm">
+          <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-4 text-center relative shadow-sm">
             <div className="w-12 h-12 rounded-xl bg-[#FF6500] text-white flex items-center justify-center font-bold text-lg mx-auto shadow-md">
               2
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
               Connect & Discuss Your Problem
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Use our private messaging system to share photos of the fault, agree on diagnostic inspection fees, and set convenient arrival times.
             </p>
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-8 space-y-4 text-center relative shadow-sm">
+          <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-4 text-center relative shadow-sm">
             <div className="w-12 h-12 rounded-xl bg-[#0B192C] text-white flex items-center justify-center font-bold text-lg mx-auto shadow-md">
               3
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
               Get the Job Done
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Technician delivers high-quality service at your premises or workshop. Funds are only disbursed once you confirm you are 100% satisfied.
             </p>
           </div>

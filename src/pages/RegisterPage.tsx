@@ -10,7 +10,9 @@ import {
   Phone, 
   MapPin, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { NIGERIAN_STATES } from '../data/mockData';
@@ -32,12 +34,15 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedState, setSelectedState] = useState('Lagos');
   const [selectedLga, setSelectedLga] = useState('Ikeja');
   const [city, setCity] = useState('Ikeja');
   const [roles, setRoles] = useState<UserRole[]>(['hirer']);
 
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const currentLgas = NIGERIAN_STATES.find(s => s.state === selectedState)?.lgas || [];
@@ -102,10 +107,10 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   };
 
   const handleGoogleSignIn = async () => {
-    setLoading(true);
+    setGoogleLoading(true);
     setErrorMsg(null);
     const result = await loginWithGoogle();
-    setLoading(false);
+    setGoogleLoading(false);
     if (!result.success) {
       setErrorMsg(result.error || 'Google sign-in failed.');
     } else {
@@ -114,8 +119,8 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+    <div className="max-w-2xl mx-auto px-4 py-12 sm:py-16">
+      <div className="bg-white dark:bg-[#0D1829] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden transition-colors">
         
         {/* Banner Header */}
         <div className="bg-[#0B192C] p-8 text-white text-center relative overflow-hidden">
@@ -125,24 +130,24 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Create Your FixNaija Account
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-md mx-auto">
             Powered by Firebase Authentication with encrypted identity & trusted Supabase database storage.
           </p>
         </div>
 
         {/* Error message */}
         {errorMsg && (
-          <div className="mx-8 mt-6 p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-3 text-xs text-rose-800">
-            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+          <div className="mx-6 sm:mx-8 mt-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 flex items-start gap-3 text-xs text-rose-800 dark:text-rose-300">
+            <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
           
           {/* Account Capabilities / Roles: Hirer, Technician or Both */}
           <div>
-            <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
               Select Your Account Capabilities (Choose One or Both)
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -150,22 +155,22 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 onClick={() => toggleRole('hirer')}
                 className={`cursor-pointer p-4 rounded-2xl border transition-all ${
                   roles.includes('hirer')
-                    ? 'border-[#0B192C] bg-slate-50 ring-2 ring-[#0B192C]'
-                    : 'border-slate-200 hover:border-slate-300'
+                    ? 'border-[#0B192C] dark:border-[#FF6500] bg-slate-50 dark:bg-slate-800/80 ring-2 ring-[#0B192C] dark:ring-[#FF6500]'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2 font-bold text-xs text-slate-900">
+                  <div className="flex items-center gap-2 font-bold text-xs text-slate-900 dark:text-white">
                     <Briefcase className="w-4 h-4 text-[#FF6500]" />
                     <span>HIRER</span>
                   </div>
                   <div className={`w-4 h-4 rounded-md flex items-center justify-center text-white text-[10px] ${
-                    roles.includes('hirer') ? 'bg-[#0B192C]' : 'border border-slate-300'
+                    roles.includes('hirer') ? 'bg-[#0B192C] dark:bg-[#FF6500]' : 'border border-slate-300 dark:border-slate-600'
                   }`}>
                     {roles.includes('hirer') && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 leading-snug">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug">
                   I need to find and hire verified technicians for home and business repairs.
                 </p>
               </div>
@@ -174,30 +179,30 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 onClick={() => toggleRole('technician')}
                 className={`cursor-pointer p-4 rounded-2xl border transition-all ${
                   roles.includes('technician')
-                    ? 'border-[#FF6500] bg-orange-50/50 ring-2 ring-[#FF6500]'
-                    : 'border-slate-200 hover:border-slate-300'
+                    ? 'border-[#FF6500] bg-orange-50/50 dark:bg-orange-950/20 ring-2 ring-[#FF6500]'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2 font-bold text-xs text-slate-900">
+                  <div className="flex items-center gap-2 font-bold text-xs text-slate-900 dark:text-white">
                     <Wrench className="w-4 h-4 text-[#FF6500]" />
                     <span>TECHNICIAN</span>
                   </div>
                   <div className={`w-4 h-4 rounded-md flex items-center justify-center text-white text-[10px] ${
-                    roles.includes('technician') ? 'bg-[#FF6500]' : 'border border-slate-300'
+                    roles.includes('technician') ? 'bg-[#FF6500]' : 'border border-slate-300 dark:border-slate-600'
                   }`}>
                     {roles.includes('technician') && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 leading-snug">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug">
                   I offer skilled repair services, publish tutorials, and take customer bookings.
                 </p>
               </div>
             </div>
 
             {roles.length === 2 && (
-              <p className="mt-2 text-xs text-emerald-700 font-semibold flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <p className="mt-2.5 text-xs text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Dual Role Active: Switch seamlessly between hiring and taking service requests.</span>
               </p>
             )}
@@ -206,7 +211,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           {/* Full Name & Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Full Legal Name
               </label>
               <div className="relative">
@@ -217,13 +222,13 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Babajide Adeleke"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Phone Number
               </label>
               <div className="relative">
@@ -234,7 +239,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. 0803 123 4567"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
               </div>
             </div>
@@ -242,7 +247,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
           {/* Email Address */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Email Address (Verification link will be dispatched)
             </label>
             <div className="relative">
@@ -253,7 +258,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
               />
             </div>
           </div>
@@ -261,33 +266,33 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           {/* State, LGA, City */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">State</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">State</label>
               <select
                 value={selectedState}
                 onChange={(e) => handleStateChange(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
               >
                 {NIGERIAN_STATES.map((s) => (
-                  <option key={s.state} value={s.state}>{s.state}</option>
+                  <option key={s.state} value={s.state} className="dark:bg-slate-800">{s.state}</option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">LGA</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">LGA</label>
               <select
                 value={selectedLga}
                 onChange={(e) => setSelectedLga(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
               >
                 {currentLgas.map((lga) => (
-                  <option key={lga} value={lga}>{lga}</option>
+                  <option key={lga} value={lga} className="dark:bg-slate-800">{lga}</option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">City / Town</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">City / Town</label>
               <div className="relative">
                 <MapPin className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                 <input
@@ -296,45 +301,61 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="e.g. Allen Avenue"
-                  className="w-full pl-8 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full pl-8 pr-3 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
               </div>
             </div>
           </div>
 
-          {/* Password & Confirm Password */}
+          {/* Password & Confirm Password with Show/Hide Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Password (Min. 6 characters)
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create strong password"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Confirm Password
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-type password"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
           </div>
@@ -342,8 +363,8 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={loading}
-            className="w-full py-3.5 px-4 bg-[#FF6500] hover:bg-[#e05900] active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            disabled={loading || googleLoading}
+            className="w-full py-3.5 px-4 bg-[#FF6500] hover:bg-[#e05900] active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
           >
             {loading ? (
               <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -356,29 +377,35 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           </button>
 
           {/* Divider */}
-          <div className="relative flex items-center justify-center">
-            <div className="border-t border-slate-200 w-full" />
-            <span className="bg-white px-3 text-xs text-slate-400 font-medium">Or</span>
+          <div className="relative flex items-center justify-center py-2">
+            <div className="border-t border-slate-200 dark:border-slate-700 w-full" />
+            <span className="bg-white dark:bg-[#0D1829] px-3 text-xs text-slate-400 font-medium">Or</span>
           </div>
 
           {/* Google Sign-in */}
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="w-full py-3 px-4 border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2"
+            disabled={loading || googleLoading}
+            className="w-full py-3 px-4 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2.5 disabled:opacity-50"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-            </svg>
-            <span>Continue with Google</span>
+            {googleLoading ? (
+              <span className="w-4 h-4 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <>
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                </svg>
+                <span>Continue with Google</span>
+              </>
+            )}
           </button>
 
           {/* Footer Navigation Link */}
-          <p className="text-center text-xs text-slate-500">
+          <div className="pt-2 text-center text-xs text-slate-500 dark:text-slate-400">
             Already have an account?{' '}
             <button
               type="button"
@@ -387,7 +414,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
             >
               Sign In to FixNaija
             </button>
-          </p>
+          </div>
 
         </form>
 

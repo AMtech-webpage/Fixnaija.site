@@ -1,8 +1,9 @@
 import React from 'react';
-import { Wrench, ShieldCheck, Mail, Phone, MapPin, Globe, ExternalLink } from 'lucide-react';
+import { Wrench, ShieldCheck, Mail, Phone, MapPin, Globe } from 'lucide-react';
+import { AppTab } from './Navbar';
 
 interface FooterProps {
-  onNavigate: (tab: 'home' | 'technicians' | 'learn' | 'how-it-works') => void;
+  onNavigate: (tab: AppTab) => void;
   onOpenAuth: (mode?: 'login' | 'signup') => void;
 }
 
@@ -11,7 +12,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAuth }) => {
     <footer className="bg-[#0B192C] text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main 4-column footer grid */}
+        {/* Main footer grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/80">
           
           {/* Column 1 & 2: Brand & Mission */}
@@ -82,6 +83,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAuth }) => {
                   className="hover:text-white transition-colors text-slate-400"
                 >
                   How FixNaija Works
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => onNavigate('about')} 
+                  className="hover:text-white transition-colors text-slate-400"
+                >
+                  About FixNaija
                 </button>
               </li>
               <li>

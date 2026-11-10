@@ -7,5 +7,11 @@
     background-color: #F8FAFC;
     color: #0F172A;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .dark body {
+    background-color: #070F1E;
+    color: #F1F5F9;
   }
 }

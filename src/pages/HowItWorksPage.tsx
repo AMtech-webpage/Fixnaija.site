@@ -4,12 +4,7 @@ import {
   Lock, 
   Wrench, 
   Briefcase, 
-  CheckCircle2, 
   ArrowRight, 
-  Clock, 
-  Building2, 
-  FileCheck,
-  Award,
   Users
 } from 'lucide-react';
 
@@ -32,10 +27,10 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           <span aria-hidden="true">·</span>
           <span>Zero Scams Guaranteed</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0B192C] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0B192C] dark:text-white tracking-tight">
           How FixNaija Works for Clients and Artisans
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
           We built FixNaija to solve the trust deficit in Nigeria’s maintenance and repair market. Here is how our dual-protection marketplace and educational community keeps everyone safe.
         </p>
       </div>
@@ -44,43 +39,43 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* HIRER PATHWAY */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-sm space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+        <div className="bg-white dark:bg-[#0D1829] rounded-3xl border border-slate-200/90 dark:border-slate-800 p-8 shadow-sm space-y-6 transition-colors">
+          <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div className="w-10 h-10 rounded-xl bg-[#0B192C] text-white flex items-center justify-center">
               <Briefcase className="w-5 h-5 text-[#FF6500]" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-[#0B192C]">For People Who Need Repairs (Hirers)</h2>
-              <p className="text-xs text-slate-500">Hire with confidence, peace of mind, and fixed pricing</p>
+              <h2 className="text-lg font-bold text-[#0B192C] dark:text-white">For People Who Need Repairs (Hirers)</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Hire with confidence, peace of mind, and fixed pricing</p>
             </div>
           </div>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-slate-100 font-bold text-xs flex items-center justify-center text-slate-900 shrink-0">1</span>
+              <span className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold text-xs flex items-center justify-center text-slate-900 dark:text-white shrink-0">1</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Find Your Local Pro</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Find Your Local Pro</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Search by specific fault (e.g. generator AVR, MacBook liquid damage) and your exact LGA (Ikeja, Lekki, Garki, Port Harcourt). Filter by verified NIN status and reviews.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-slate-100 font-bold text-xs flex items-center justify-center text-slate-900 shrink-0">2</span>
+              <span className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold text-xs flex items-center justify-center text-slate-900 dark:text-white shrink-0">2</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Discuss & Agree on Diagnosis</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Discuss & Agree on Diagnosis</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Chat privately through FixNaija, attach photos of the broken appliance, and confirm diagnostic fee and turnaround time before any work commences.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-slate-100 font-bold text-xs flex items-center justify-center text-slate-900 shrink-0">3</span>
+              <span className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold text-xs flex items-center justify-center text-slate-900 dark:text-white shrink-0">3</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Escrow Safety & Completion</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Escrow Safety & Completion</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Funds are secured in FixNaija Escrow. Only after the technician arrives, performs the repair, and you verify that your equipment is running perfectly do you release payment.
                 </p>
               </div>
@@ -89,7 +84,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
 
           <button
             onClick={onFindTechnicians}
-            className="w-full py-3 bg-[#0B192C] hover:bg-[#071322] text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#0B192C] dark:bg-slate-800 hover:bg-[#071322] dark:hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
           >
             <span>Browse Technicians Now</span>
             <ArrowRight className="w-4 h-4" />
@@ -97,43 +92,43 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
         </div>
 
         {/* TECHNICIAN PATHWAY */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-sm space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-            <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#FF6500] flex items-center justify-center border border-orange-200">
+        <div className="bg-white dark:bg-[#0D1829] rounded-3xl border border-slate-200/90 dark:border-slate-800 p-8 shadow-sm space-y-6 transition-colors">
+          <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-500/10 text-[#FF6500] flex items-center justify-center border border-orange-200 dark:border-orange-500/20">
               <Wrench className="w-5 h-5 text-[#FF6500]" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-[#0B192C]">For Skilled Technicians & Engineers</h2>
-              <p className="text-xs text-slate-500">Monetize your trade, build credibility, and get paid on time</p>
+              <h2 className="text-lg font-bold text-[#0B192C] dark:text-white">For Skilled Technicians & Engineers</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Monetize your trade, build credibility, and get paid on time</p>
             </div>
           </div>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-orange-100 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">1</span>
+              <span className="w-7 h-7 rounded-lg bg-orange-100 dark:bg-orange-500/20 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">1</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Create Identity & Verify Credentials</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Create Identity & Verify Credentials</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Register with your full name and phone number. Submit your NIN and Federal Ministry of Labour Trade Test slip to unlock the verified green badge.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-orange-100 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">2</span>
+              <span className="w-7 h-7 rounded-lg bg-orange-100 dark:bg-orange-500/20 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">2</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Publish Tutorials & Win Clients</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Publish Tutorials & Win Clients</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Share troubleshooting checklists and video masterclasses in our Learning Community. High-value tutorials position you as an undisputed authority in your field.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <span className="w-7 h-7 rounded-lg bg-orange-100 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">3</span>
+              <span className="w-7 h-7 rounded-lg bg-orange-100 dark:bg-orange-500/20 font-bold text-xs flex items-center justify-center text-[#FF6500] shrink-0">3</span>
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Receive Direct Bookings & Payouts</h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Receive Direct Bookings & Payouts</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                   Accept incoming job requests, set your own service rates in Naira, and receive direct settlement into your Nigerian commercial bank account upon completion.
                 </p>
               </div>

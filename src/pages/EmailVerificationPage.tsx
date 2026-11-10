@@ -59,7 +59,7 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+      <div className="bg-white dark:bg-[#0D1829] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden transition-colors">
         
         {/* Banner Header */}
         <div className="bg-[#0B192C] p-8 text-white text-center">
@@ -77,37 +77,37 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
         <div className="p-8 space-y-6">
           
           {/* Trust notice */}
-          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-1.5">
+          <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs space-y-1.5">
             <div className="flex items-center gap-1.5 font-bold">
-              <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+              <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
               <span>Identity Protection Policy</span>
             </div>
-            <p className="leading-relaxed text-amber-800">
+            <p className="leading-relaxed text-amber-800 dark:text-amber-300">
               FixNaija enforces verified emails for all members before unlocking protected marketplace features (messaging, booking technicians, receiving jobs, or publishing guides).
             </p>
           </div>
 
           {/* User Email Box */}
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-1">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-center space-y-1">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Verification Dispatched To:
             </span>
-            <p className="text-sm font-extrabold text-[#0B192C] break-all">
+            <p className="text-sm font-extrabold text-[#0B192C] dark:text-white break-all">
               {email}
             </p>
           </div>
 
           {/* Feedback Notices */}
           {notice && (
-            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-2 text-xs text-emerald-800">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-start gap-2 text-xs text-emerald-800 dark:text-emerald-300">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <span>{notice}</span>
             </div>
           )}
 
           {errorMsg && (
-            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-2 text-xs text-rose-800">
-              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 flex items-start gap-2 text-xs text-rose-800 dark:text-rose-300">
+              <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -132,18 +132,18 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
             <button
               onClick={handleResend}
               disabled={resending}
-              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              <Send className="w-3.5 h-3.5 text-slate-500" />
+              <Send className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               <span>{resending ? 'Dispatching email...' : 'Resend Verification Email'}</span>
             </button>
           </div>
 
           {/* Logout */}
-          <div className="pt-2 text-center border-t border-slate-100">
+          <div className="pt-2 text-center border-t border-slate-100 dark:border-slate-800">
             <button
               onClick={() => logout()}
-              className="text-xs font-semibold text-slate-500 hover:text-rose-600 flex items-center justify-center gap-1.5 mx-auto transition-colors"
+              className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center gap-1.5 mx-auto transition-colors"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Sign out and use another email</span>

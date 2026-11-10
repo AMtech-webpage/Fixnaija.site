@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage';
 import { FindTechniciansPage } from './pages/FindTechniciansPage';
 import { LearnPage } from './pages/LearnPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
+import { AboutPage } from './pages/AboutPage';
 import { TechnicianDashboard } from './pages/TechnicianDashboard';
 import { MessagesPage } from './pages/MessagesPage';
 import { RegisterPage } from './pages/RegisterPage';
@@ -25,9 +26,31 @@ import {
   INITIAL_MESSAGES, 
   INITIAL_JOB_REQUESTS 
 } from './data/mockData';
-import { Technician, Tutorial, JobRequest, ChatMessage, Conversation, UserRole } from './types';
+import { Technician, Tutorial, JobRequest, ChatMessage, Conversation } from './types';
 import { useAuth } from './context/AuthContext';
 import { AlertTriangle, MailCheck } from 'lucide-react';
+
+const pathToTab = (pathname: string): AppTab => {
+  const clean = pathname.replace(/^\/+/, '').split('?')[0].split('#')[0];
+  switch (clean) {
+    case 'about': return 'about';
+    case 'technicians': return 'technicians';
+    case 'learn': return 'learn';
+    case 'how-it-works': return 'how-it-works';
+    case 'login': return 'login';
+    case 'register': return 'register';
+    case 'reset-password': return 'reset-password';
+    case 'verify-email': return 'verify-email';
+    case 'dashboard': return 'dashboard';
+    case 'messages': return 'messages';
+    default: return 'home';
+  }
+};
+
+const tabToPath = (tab: AppTab): string => {
+  if (tab === 'home') return '/';
+  return `/${tab}`;
+};
 
 export default function App() {
   const { 
@@ -38,7 +61,13 @@ export default function App() {
     logout 
   } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<AppTab>('home');
+  const [activeTab, setActiveTabState] = useState<AppTab>(() => {
+    if (typeof window !== 'undefined') {
+      return pathToTab(window.location.pathname);
+    }
+    return 'home';
+  });
+
   const [activeRole, setActiveRole] = useState<'hirer' | 'technician'>('hirer');
 
   // Modals
@@ -49,7 +78,7 @@ export default function App() {
 
   // App Content State
   const [categories] = useState(SERVICE_CATEGORIES);
-  const [technicians, setTechnicians] = useState<Technician[]>(INITIAL_TECHNICIANS);
+  const [technicians] = useState<Technician[]>(INITIAL_TECHNICIANS);
   const [tutorials, setTutorials] = useState<Tutorial[]>(INITIAL_TUTORIALS);
   const [conversations, setConversations] = useState<Conversation[]>(INITIAL_CONVERSATIONS);
   const [messages, setMessages] = useState<Record<string, ChatMessage[]>>(INITIAL_MESSAGES);
@@ -61,6 +90,27 @@ export default function App() {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [stateFilter, setStateFilter] = useState('All States');
   const [lgaFilter, setLgaFilter] = useState('All LGAs');
+
+  // Synchronized navigation wrapper that maintains window.history
+  const setActiveTab = (tab: AppTab) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined') {
+      const targetPath = tabToPath(tab);
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+      }
+    }
+  };
+
+  // Browser back/forward navigation support
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTabState(pathToTab(window.location.pathname));
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync active role with profile
   useEffect(() => {
@@ -204,7 +254,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A] selection:bg-[#FF6500] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#070F1E] text-[#0F172A] dark:text-[#F1F5F9] selection:bg-[#FF6500] selection:text-white transition-colors duration-200">
       
       {/* Email Verification Sticky Alert Banner */}
       {firebaseUser && !isEmailVerified && (
@@ -294,6 +344,14 @@ export default function App() {
           />
         )}
 
+        {/* ABOUT US */}
+        {activeTab === 'about' && (
+          <AboutPage
+            onFindTechnicians={() => setActiveTab('technicians')}
+            onJoinPlatform={() => setActiveTab('register')}
+          />
+        )}
+
         {/* REGISTRATION PAGE */}
         {activeTab === 'register' && (
           <RegisterPage
@@ -358,9 +416,9 @@ export default function App() {
               onToggleRole={handleToggleRole}
             />
           ) : (
-            <div className="max-w-md mx-auto my-20 p-8 bg-white rounded-2xl border border-slate-200 text-center space-y-4">
+            <div className="max-w-md mx-auto my-20 p-8 bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-4">
               <span className="w-6 h-6 border-2 border-[#FF6500] border-t-transparent rounded-full animate-spin inline-block" />
-              <p className="text-xs text-slate-500">Syncing database profile with verified Firebase token...</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Syncing database profile with verified Firebase token...</p>
             </div>
           )
         )}

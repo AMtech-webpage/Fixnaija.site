@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  LayoutDashboard, 
   Briefcase, 
   Wrench, 
-  BookOpen, 
   MessageSquare, 
   Star, 
   ShieldCheck, 
@@ -11,18 +9,10 @@ import {
   Plus, 
   CheckCircle2, 
   Clock, 
-  AlertCircle, 
   LogOut, 
-  DollarSign, 
-  FileText, 
-  Upload, 
-  ChevronRight, 
-  TrendingUp,
-  Eye,
-  Check,
-  X
+  FileText
 } from 'lucide-react';
-import { UserProfile, JobRequest, ServiceItem, Tutorial } from '../types';
+import { UserProfile, JobRequest, ServiceItem } from '../types';
 
 interface TechnicianDashboardProps {
   currentUser: UserProfile;
@@ -41,11 +31,10 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
   onUpdateJobStatus,
   onLogout,
   onNavigateToMessages,
-  onNavigateToLearn,
   activeRole,
   onToggleRole,
 }) => {
-  const [activeTab, setActiveTab] = useState<'jobs' | 'services' | 'tutorials' | 'verification' | 'settings'>('jobs');
+  const [activeTab, setActiveTab] = useState<'jobs' | 'services' | 'verification' | 'settings'>('jobs');
   
   // Custom Services state
   const [services, setServices] = useState<ServiceItem[]>([
@@ -59,8 +48,6 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
   const [showAddService, setShowAddService] = useState(false);
 
   // Verification document state
-  const [ninDocUploaded, setNinDocUploaded] = useState(true);
-  const [tradeDocUploaded, setTradeDocUploaded] = useState(true);
   const [cacDocUploaded, setCacDocUploaded] = useState(false);
   const [uploadNotice, setUploadNotice] = useState<string | null>(null);
 
@@ -86,7 +73,6 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
 
   const handleSimulateUpload = (type: 'cac' | 'trade') => {
     if (type === 'cac') setCacDocUploaded(true);
-    if (type === 'trade') setTradeDocUploaded(true);
     setUploadNotice('Document successfully uploaded for verification review by FixNaija Compliance Team.');
     setTimeout(() => setUploadNotice(null), 4000);
   };
@@ -155,9 +141,9 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
       {/* KPI Performance Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Active Job Inquiries</span>
-          <p className="text-2xl font-extrabold text-[#0B192C] tabular-nums">
+        <div className="bg-white dark:bg-[#0D1829] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1 transition-colors">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Active Job Inquiries</span>
+          <p className="text-2xl font-extrabold text-[#0B192C] dark:text-white tabular-nums">
             {jobRequests.filter(j => j.status === 'pending').length}
           </p>
           <span className="text-[11px] text-[#FF6500] font-medium flex items-center gap-1">
@@ -166,19 +152,19 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
           </span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Completed Repairs</span>
-          <p className="text-2xl font-extrabold text-[#0B192C] tabular-nums">
+        <div className="bg-white dark:bg-[#0D1829] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1 transition-colors">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Completed Repairs</span>
+          <p className="text-2xl font-extrabold text-[#0B192C] dark:text-white tabular-nums">
             {jobRequests.filter(j => j.status === 'completed').length + 18}
           </p>
-          <span className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
+          <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3" />
             <span>100% Escrow Disbursed</span>
           </span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Total Revenue Earned</span>
+        <div className="bg-white dark:bg-[#0D1829] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1 transition-colors">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Revenue Earned</span>
           <p className="text-2xl font-extrabold text-[#FF6500] tabular-nums">
             ₦385,000
           </p>
@@ -187,9 +173,9 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
           </span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Customer Rating</span>
-          <p className="text-2xl font-extrabold text-[#0B192C] tabular-nums flex items-center gap-1">
+        <div className="bg-white dark:bg-[#0D1829] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1 transition-colors">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Customer Rating</span>
+          <p className="text-2xl font-extrabold text-[#0B192C] dark:text-white tabular-nums flex items-center gap-1">
             <span>4.92</span>
             <Star className="w-4 h-4 text-amber-500 fill-amber-500 inline" />
           </p>
@@ -201,11 +187,11 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
       </div>
 
       {/* Main Workspace Navigation Tabs */}
-      <div className="flex border-b border-slate-200 bg-white rounded-2xl p-1 shadow-xs overflow-x-auto text-xs font-bold text-slate-600">
+      <div className="flex border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0D1829] rounded-2xl p-1 shadow-xs overflow-x-auto text-xs font-bold text-slate-600 dark:text-slate-300 transition-colors">
         <button
           onClick={() => setActiveTab('jobs')}
           className={`px-4 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 ${
-            activeTab === 'jobs' ? 'bg-[#0B192C] text-white shadow-xs' : 'hover:text-slate-900'
+            activeTab === 'jobs' ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white shadow-xs' : 'hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           <Briefcase className="w-4 h-4" />
@@ -215,7 +201,7 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
         <button
           onClick={() => setActiveTab('services')}
           className={`px-4 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 ${
-            activeTab === 'services' ? 'bg-[#0B192C] text-white shadow-xs' : 'hover:text-slate-900'
+            activeTab === 'services' ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white shadow-xs' : 'hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           <Wrench className="w-4 h-4" />
@@ -225,7 +211,7 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
         <button
           onClick={() => setActiveTab('verification')}
           className={`px-4 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 ${
-            activeTab === 'verification' ? 'bg-[#0B192C] text-white shadow-xs' : 'hover:text-slate-900'
+            activeTab === 'verification' ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white shadow-xs' : 'hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
@@ -235,7 +221,7 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
         <button
           onClick={() => setActiveTab('settings')}
           className={`px-4 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 ${
-            activeTab === 'settings' ? 'bg-[#0B192C] text-white shadow-xs' : 'hover:text-slate-900'
+            activeTab === 'settings' ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white shadow-xs' : 'hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -249,10 +235,10 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
       {activeTab === 'jobs' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
               Incoming Client Requests
             </h3>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               Payments protected by FixNaija Escrow
             </span>
           </div>
@@ -261,30 +247,30 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
             {jobRequests.map((job) => (
               <div 
                 key={job.id}
-                className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors"
               >
                 <div className="space-y-1.5 flex-1">
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="font-bold text-[#0B192C]">{job.hirer_name}</span>
+                    <span className="font-bold text-[#0B192C] dark:text-white">{job.hirer_name}</span>
                     <span aria-hidden="true">·</span>
-                    <span className="text-slate-500">{job.address}, {job.lga}, {job.state}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{job.address}, {job.lga}, {job.state}</span>
                     <span aria-hidden="true">·</span>
                     <span className="text-slate-400">{job.created_at}</span>
                   </div>
 
-                  <h4 className="text-base font-bold text-slate-900">
+                  <h4 className="text-base font-bold text-slate-900 dark:text-white">
                     {job.service_title}
                   </h4>
                   
-                  <p className="text-xs text-slate-600 leading-relaxed max-w-2xl">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
                     {job.description}
                   </p>
 
                   <div className="flex items-center gap-4 text-xs pt-1">
-                    <span className="font-semibold text-slate-700">
-                      Budget: <strong className="text-[#0B192C] tabular-nums">₦{job.budget_naira.toLocaleString()}</strong>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      Budget: <strong className="text-[#0B192C] dark:text-[#FF6500] tabular-nums">₦{job.budget_naira.toLocaleString()}</strong>
                     </span>
-                    <span className="text-slate-500">
+                    <span className="text-slate-500 dark:text-slate-400">
                       Preferred Date: <strong>{job.preferred_date}</strong>
                     </span>
                   </div>
@@ -302,7 +288,7 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
                       </button>
                       <button
                         onClick={() => onUpdateJobStatus(job.id, 'declined')}
-                        className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors"
+                        className="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-colors"
                       >
                         Decline
                       </button>
@@ -311,12 +297,12 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
 
                   {job.status === 'accepted' && (
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
                         Accepted
                       </span>
                       <button
                         onClick={() => onUpdateJobStatus(job.id, 'completed')}
-                        className="px-3.5 py-1.5 bg-[#0B192C] hover:bg-[#FF6500] text-white text-xs font-bold rounded-xl transition-colors"
+                        className="px-3.5 py-1.5 bg-[#0B192C] dark:bg-[#FF6500] hover:bg-[#FF6500] text-white text-xs font-bold rounded-xl transition-colors"
                       >
                         Mark Completed
                       </button>
@@ -324,23 +310,23 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
                   )}
 
                   {job.status === 'completed' && (
-                    <span className="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg">
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">
                       Completed & Paid
                     </span>
                   )}
 
                   {job.status === 'declined' && (
-                    <span className="text-xs font-bold text-rose-600 bg-rose-50 px-3 py-1.5 rounded-lg">
+                    <span className="text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-3 py-1.5 rounded-lg">
                       Declined
                     </span>
                   )}
 
                   <button
                     onClick={onNavigateToMessages}
-                    className="p-2 border border-slate-200 hover:bg-slate-50 rounded-xl text-slate-600"
+                    className="p-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300"
                     title="Open Chat"
                   >
-                    <MessageSquare className="w-4 h-4 text-[#0B192C]" />
+                    <MessageSquare className="w-4 h-4 text-[#0B192C] dark:text-slate-200" />
                   </button>
                 </div>
               </div>
@@ -351,13 +337,13 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
 
       {/* 2. SERVICES & RATES TAB */}
       {activeTab === 'services' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+        <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-6 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Service Catalog & Pricing (₦ Naira)
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Clients see these service items when viewing your profile or booking on FixNaija.
               </p>
             </div>
@@ -372,22 +358,22 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
           </div>
 
           {showAddService && (
-            <form onSubmit={handleAddService} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-              <h4 className="text-xs font-bold text-slate-900 uppercase">New Service Details</h4>
+            <form onSubmit={handleAddService} className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase">New Service Details</h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-700 mb-1">Service Title</label>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Service Title</label>
                   <input
                     type="text"
                     required
                     value={newServiceName}
                     onChange={(e) => setNewServiceName(e.target.value)}
                     placeholder="e.g. Inverter Battery Desulfation"
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs"
+                    className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-700 mb-1">Price (₦ Naira)</label>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Price (₦ Naira)</label>
                   <input
                     type="number"
                     min="1000"
@@ -395,17 +381,17 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
                     required
                     value={newServicePrice}
                     onChange={(e) => setNewServicePrice(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs"
+                    className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-700 mb-1">Estimated Duration</label>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Estimated Duration</label>
                   <input
                     type="text"
                     value={newServiceDuration}
                     onChange={(e) => setNewServiceDuration(e.target.value)}
                     placeholder="e.g. 2 hrs or 24 hrs"
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs"
+                    className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -413,13 +399,13 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddService(false)}
-                  className="px-3 py-1.5 text-xs text-slate-600 hover:text-slate-900"
+                  className="px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 bg-[#0B192C] text-white text-xs font-bold rounded-lg"
+                  className="px-4 py-1.5 bg-[#0B192C] dark:bg-[#FF6500] text-white text-xs font-bold rounded-lg"
                 >
                   Save Service
                 </button>
@@ -427,20 +413,20 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
             </form>
           )}
 
-          <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+          <div className="divide-y divide-slate-100 dark:divide-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
             {services.map((srv) => (
-              <div key={srv.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+              <div key={srv.id} className="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{srv.name}</h4>
-                  <p className="text-xs text-slate-500">Duration: {srv.duration_estimate}</p>
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">{srv.name}</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Duration: {srv.duration_estimate}</p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-sm font-extrabold text-[#0B192C] tabular-nums">
+                  <span className="text-sm font-extrabold text-[#0B192C] dark:text-[#FF6500] tabular-nums">
                     ₦{srv.price_naira.toLocaleString()}
                   </span>
                   <button
                     onClick={() => handleDeleteService(srv.id)}
-                    className="text-xs text-slate-400 hover:text-rose-600"
+                    className="text-xs text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     Delete
                   </button>
@@ -453,18 +439,18 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
 
       {/* 3. VERIFICATION & COMPLIANCE TAB */}
       {activeTab === 'verification' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+        <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-6 transition-colors">
           <div>
-            <h3 className="text-base font-bold text-slate-900">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
               FixNaija Trust & Verification Status
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Verified technicians receive up to 5x more customer bookings and the official FixNaija green badge.
             </p>
           </div>
 
           {uploadNotice && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800">
+            <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs text-emerald-800 dark:text-emerald-300">
               {uploadNotice}
             </div>
           )}
@@ -472,68 +458,68 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
           <div className="space-y-4">
             
             {/* NIN Verification */}
-            <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
                     National Identification Number (NIN)
                   </h4>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     Identity verified against Nigerian NIMC database.
                   </p>
                 </div>
               </div>
-              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-md">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-md">
                 Verified
               </span>
             </div>
 
             {/* Federal Trade Test */}
-            <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
                     Federal Ministry of Labour Trade Test (Grade 1/2/3)
                   </h4>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     Official technical competence certificate.
                   </p>
                 </div>
               </div>
-              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-md">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-md">
                 Verified Pro
               </span>
             </div>
 
             {/* CAC Registered Business (Optional) */}
-            <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center">
                   <Briefcase className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
                     Corporate Affairs Commission (CAC) Business Registration
                   </h4>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     Optional: For registered corporate engineering enterprises.
                   </p>
                 </div>
               </div>
               {cacDocUploaded ? (
-                <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-md">
+                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 rounded-md">
                   Under Review
                 </span>
               ) : (
                 <button
                   onClick={() => handleSimulateUpload('cac')}
-                  className="px-3.5 py-1.5 bg-[#0B192C] text-white text-xs font-bold rounded-lg hover:bg-slate-800"
+                  className="px-3.5 py-1.5 bg-[#0B192C] dark:bg-[#FF6500] text-white text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors"
                 >
                   Upload CAC Slip
                 </button>
@@ -546,51 +532,51 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
 
       {/* 4. SETTINGS TAB */}
       {activeTab === 'settings' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6 max-w-xl">
-          <h3 className="text-base font-bold text-slate-900">
+        <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 space-y-6 max-w-xl transition-colors">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">
             Account & Direct Bank Settlement Settings
           </h3>
 
           <div className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Full Legal Name</label>
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Legal Name</label>
               <input
                 type="text"
                 disabled
                 value={currentUser.full_name}
-                className="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-700"
+                className="w-full px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Email Address</label>
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
               <input
                 type="email"
                 disabled
                 value={currentUser.email}
-                className="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-700"
+                className="w-full px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300"
               />
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-              <span className="font-bold text-slate-900 block">Nigerian Bank Account (For Escrow Payouts)</span>
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+              <span className="font-bold text-slate-900 dark:text-white block">Nigerian Bank Account (For Escrow Payouts)</span>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-600 mb-1">Bank Name</label>
-                  <select className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg font-medium">
-                    <option>Guaranty Trust Bank (GTBank)</option>
-                    <option>Access Bank</option>
-                    <option>Zenith Bank</option>
-                    <option>First Bank of Nigeria</option>
-                    <option>Kuda Microfinance Bank</option>
+                  <label className="block text-slate-600 dark:text-slate-400 mb-1">Bank Name</label>
+                  <select className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg font-medium">
+                    <option className="dark:bg-slate-800">Guaranty Trust Bank (GTBank)</option>
+                    <option className="dark:bg-slate-800">Access Bank</option>
+                    <option className="dark:bg-slate-800">Zenith Bank</option>
+                    <option className="dark:bg-slate-800">First Bank of Nigeria</option>
+                    <option className="dark:bg-slate-800">Kuda Microfinance Bank</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-600 mb-1">Account Number (NUBAN)</label>
+                  <label className="block text-slate-600 dark:text-slate-400 mb-1">Account Number (NUBAN)</label>
                   <input
                     type="text"
                     defaultValue="0148920192"
-                    className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg font-mono tabular-nums"
+                    className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg font-mono tabular-nums"
                   />
                 </div>
               </div>
@@ -599,7 +585,7 @@ export const TechnicianDashboard: React.FC<TechnicianDashboardProps> = ({
             <div className="pt-2">
               <button
                 type="button"
-                className="px-4 py-2 bg-[#0B192C] text-white text-xs font-bold rounded-xl"
+                className="px-4 py-2 bg-[#0B192C] dark:bg-[#FF6500] text-white text-xs font-bold rounded-xl"
               >
                 Save Changes
               </button>

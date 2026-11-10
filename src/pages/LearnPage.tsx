@@ -2,18 +2,9 @@ import React, { useState } from 'react';
 import { 
   Play, 
   BookOpen, 
-  Heart, 
-  MessageSquare, 
-  Bookmark, 
-  Share2, 
   Plus, 
   Search, 
-  ShieldCheck, 
-  CheckCircle2, 
-  Clock, 
-  Lightbulb, 
-  Sparkles,
-  ArrowRight
+  ShieldCheck
 } from 'lucide-react';
 import { Tutorial, UserProfile } from '../types';
 
@@ -73,7 +64,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
       category: pubCategory,
       read_time: pubType === 'video' ? '6 min watch' : '5 min read',
       excerpt: pubExcerpt,
-      cover_image: '/src/assets/images/generator_solar_repair_1794306643540.jpg',
+      cover_image: '/src/assets/images/hero_technician_repair_1794306643365.jpg',
       content: pubExcerpt,
       steps: pubStepTitle ? [
         {
@@ -131,16 +122,16 @@ export const LearnPage: React.FC<LearnPageProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-4">
+      <div className="bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm space-y-4 transition-colors">
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
-          {/* Format segmented control (Buttons allowed per frontend-design skill) */}
-          <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
+          {/* Format segmented control */}
+          <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl overflow-x-auto">
             <button
               onClick={() => setActiveFormat('all')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
-                activeFormat === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                activeFormat === 'all' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               All Formats
@@ -148,7 +139,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
             <button
               onClick={() => setActiveFormat('video')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-                activeFormat === 'video' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                activeFormat === 'video' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Play className="w-3 h-3 text-[#FF6500]" />
@@ -157,7 +148,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
             <button
               onClick={() => setActiveFormat('guide')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-                activeFormat === 'guide' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                activeFormat === 'guide' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <BookOpen className="w-3 h-3 text-[#FF6500]" />
@@ -166,7 +157,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
             <button
               onClick={() => setActiveFormat('article')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
-                activeFormat === 'article' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                activeFormat === 'article' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               Articles
@@ -181,21 +172,21 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search tutorials & guides..."
-              className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0B192C] focus:bg-white"
+              className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF6500] focus:bg-white dark:focus:bg-slate-800"
             />
           </div>
 
         </div>
 
         {/* Category Pills/Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-slate-100 text-xs">
-          <span className="font-semibold text-slate-500 shrink-0">Topic:</span>
+        <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+          <span className="font-semibold text-slate-500 dark:text-slate-400 shrink-0">Topic:</span>
           <button
             onClick={() => setSelectedCategory('all')}
             className={`px-3 py-1 rounded-lg shrink-0 font-medium transition-colors ${
               selectedCategory === 'all'
-                ? 'bg-[#0B192C] text-white'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             All Topics
@@ -206,8 +197,8 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1 rounded-lg shrink-0 font-medium transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-[#0B192C] text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
               {cat}
@@ -223,7 +214,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
           <div
             key={tut.id}
             onClick={() => onSelectTutorial(tut)}
-            className="cursor-pointer group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md hover:border-[#FF6500] transition-all flex flex-col justify-between"
+            className="cursor-pointer group bg-white dark:bg-[#0D1829] rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs hover:shadow-md hover:border-[#FF6500] dark:hover:border-[#FF6500] transition-all flex flex-col justify-between"
           >
             <div>
               {/* Cover */}
@@ -245,35 +236,35 @@ export const LearnPage: React.FC<LearnPageProps> = ({
 
               {/* Text content */}
               <div className="p-5 space-y-2">
-                <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium">
                   <span className="text-[#FF6500] font-bold uppercase tracking-wider">{tut.category}</span>
                   <span aria-hidden="true">·</span>
                   <span>{tut.published_at}</span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-[#FF6500] transition-colors leading-snug line-clamp-2">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-[#FF6500] transition-colors leading-snug line-clamp-2">
                   {tut.title}
                 </h3>
 
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                   {tut.excerpt}
                 </p>
               </div>
             </div>
 
             {/* Author Footer */}
-            <div className="p-5 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between text-xs text-slate-500">
+            <div className="p-5 pt-0 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <div className="flex items-center gap-2">
                 <img
                   src={tut.author.avatar_url}
                   alt={tut.author.name}
                   referrerPolicy="no-referrer"
-                  className="w-7 h-7 rounded-full object-cover border border-slate-200"
+                  className="w-7 h-7 rounded-full object-cover border border-slate-200 dark:border-slate-700"
                 />
                 <div>
-                  <div className="flex items-center gap-1 font-semibold text-slate-900">
+                  <div className="flex items-center gap-1 font-semibold text-slate-900 dark:text-white">
                     <span>{tut.author.name}</span>
-                    {tut.author.verified && <ShieldCheck className="w-3 h-3 text-emerald-600" />}
+                    {tut.author.verified && <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />}
                   </div>
                 </div>
               </div>
@@ -291,7 +282,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
       {/* Publish Modal for Technicians */}
       {isPublishModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white dark:bg-[#0D1829] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-lg overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-150">
             <div className="bg-[#0B192C] p-5 text-white flex items-center justify-between">
               <div>
                 <span className="text-[11px] font-bold text-[#FF6500] uppercase tracking-wider">
@@ -301,7 +292,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               </div>
               <button
                 onClick={() => setIsPublishModalOpen(false)}
-                className="text-slate-400 hover:text-white"
+                className="text-slate-400 hover:text-white p-1"
               >
                 ✕
               </button>
@@ -309,7 +300,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
 
             <form onSubmit={handleCreateTutorial} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Format Type
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -318,10 +309,10 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                       key={fmt}
                       type="button"
                       onClick={() => setPubType(fmt)}
-                      className={`py-2 text-xs font-bold rounded-lg capitalize border ${
+                      className={`py-2 text-xs font-bold rounded-lg capitalize border transition-colors ${
                         pubType === fmt
-                          ? 'bg-[#0B192C] text-white border-[#0B192C]'
-                          : 'bg-slate-50 text-slate-700 border-slate-200'
+                          ? 'bg-[#0B192C] dark:bg-[#FF6500] text-white border-[#0B192C] dark:border-[#FF6500]'
+                          : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
                       }`}
                     >
                       {fmt}
@@ -331,22 +322,22 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Category
                 </label>
                 <select
                   value={pubCategory}
                   onChange={(e) => setPubCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-900 dark:text-white"
                 >
                   {categories.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c} value={c} className="dark:bg-slate-800">{c}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Tutorial Title
                 </label>
                 <input
@@ -355,12 +346,12 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                   value={pubTitle}
                   onChange={(e) => setPubTitle(e.target.value)}
                   placeholder="e.g. How to Safely Balance Lithium Inverter Batteries"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Summary / Excerpt
                 </label>
                 <textarea
@@ -369,12 +360,12 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                   value={pubExcerpt}
                   onChange={(e) => setPubExcerpt(e.target.value)}
                   placeholder="Explain what the reader or student will learn..."
-                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs resize-none"
+                  className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 resize-none"
                 />
               </div>
 
-              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                <span className="text-xs font-bold text-slate-900 block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl space-y-2">
+                <span className="text-xs font-bold text-slate-900 dark:text-white block">
                   Add Step 1 Diagnostic Instruction
                 </span>
                 <input
@@ -382,14 +373,14 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                   value={pubStepTitle}
                   onChange={(e) => setPubStepTitle(e.target.value)}
                   placeholder="Step 1 Headline (e.g. Check Resistance across terminals)"
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white placeholder-slate-400"
                 />
                 <textarea
                   rows={2}
                   value={pubStepDetail}
                   onChange={(e) => setPubStepDetail(e.target.value)}
                   placeholder="Step 1 Technical Details and Pro-Tip..."
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs resize-none"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white placeholder-slate-400 resize-none"
                 />
               </div>
 
